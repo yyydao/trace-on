@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html ><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Trace ON</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/ui-lightness/jquery-ui.min.css">
+<link rel="stylesheet" href="./css/colorpicker.css"/>
+
+<style type="text/css">
+
+.letterpress {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4), -1px -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "glyphicons";
+  font-weight: normal;
+  font-style: normal;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#source,
+#target,
+#target-container,
+#container {
+  display: block;
+  float: left;
+}
+#img-control{
+    display: block;
+    float: left;
+    clear: both;
+    padding: 16px 32px;
+    width: 800px;
+}
+#img-control label,#img-control input{
+    margin: 12px 0 0;
+    width: 100%;
+}
+#controls {
+  display: block;
+  float: left;
+  clear: both;
+  padding: 16px 32px;
+  width: 800px;
+}
+#controls label {
+  margin: 12px 0 0;
+  width: 100%;
+}
+#controls input {
+  margin: 6px 0;
+  width: 100%;
+}
+#controls> div {
+  margin: 6px 0;
+  width: 100%;
+}
+
+.color-stop-wrap{
+    position: relative;
+    padding-bottom: 20px;
+}
+#controls div.cp-container{
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: url(img/select.png) center;
+    margin: 17px 0 0;
+}
+
+.picker-demo{
+    position: absolute;
+    bottom: 4px;
+    left: 4px ;
+    height: 28px;
+    width: 28px;
+    background: url(img/select.png) center;
+}
+
+.color-stop-wrap>div {
+    margin: 1em;
+}
+
+</style>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="./js/colorpicker.js"></script>
+</head>
+<body>
+<div id="img-control">
+    <label for="source-img">图片地址</label><br>
+    <input name="source-img" id="source-img" type="text" value="https://img.alicdn.com/imgextra/i3/1674413158/TB2GYJScpXXXXXlXXXXXXXXXXXX-1674413158.jpg_300x300.jpg">
+    <input id="getImage" type="submit" value="载入"/>
+</div>
+<div id="container">
+    <img id="source">
+    <div id="target-bg-demo" style="background: radial-gradient(at 50% 50%, rgb(254, 255, 255) 0%, rgb(221, 241, 249) 35%, rgb(160, 216, 239) 100%);">
+        <img id="result">
+    </div>
+</div>
+<div id="controls">
+<label for="tolerance">透明度</label><br>
+<input name="tolerance" id="tolerance" type="text" value="150">
+<div id="tolerance-control" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+    <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 42.6143790849673%;"></a>
+</div>
+<label for="colorstop">范围</label><br>
+<input name="colorstop" id="colorstop" readonly="" type="text" value="radial-gradient(at 50% 50%, #feffff 0%, #ddf1f9 63%, #a0d8ef 100%)">
+
+<div class="color-stop-wrap">
+    <div>colorStop One</div>
+    <div id="colorstop-one" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+        <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 27.4509803921569%;"></a>
+    </div>
+    <div class="cp-container" id="one-color">
+        <div class="picker-demo" style="background: #feffff"></div>
+    </div>
+</div>
+
+<div class="color-stop-wrap">
+    <div>colorStop Two</div>
+    <div id="colorstop-two" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+        <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 78.4313725490196%;"></a>
+    </div>
+    <div class="cp-container" id="two-color">
+        <div class="picker-demo" style="background: #ddf1f9"></div>
+    </div>
+</div>
+
+
+<div class="color-stop-wrap">
+    <div>colorStop Three</div>
+    <div id="colorstop-three" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+        <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 100%;"></a>
+    </div>
+    <div class="cp-container" id="three-color">
+        <div class="picker-demo" style="background:#a0d8ef "></div>
+    </div>
+</div>
+
+</div>
+
+<script src="js/js.js"></script>
+
+
+</body>
+</html>
