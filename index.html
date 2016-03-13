@@ -39,6 +39,12 @@
               display: block;
               float: left;
           }
+          #container{
+              display: flex;
+              display: -webkit-flex;
+              min-width:830px;
+              padding: 16px 32px;
+          }
           #img-control{
               display: block;
               float: left;
@@ -95,6 +101,14 @@
               margin: 1em;
           }
 
+          .demo-section{
+              width: 850px;
+              min-height: 1000px;
+          }
+
+          .source-img{
+              width:48%;
+          }
       </style>
       <script src="./js/jquery.min.js"></script>
       <script src="./js/jquery-ui-1.10.3.custom.min.js"></script>
@@ -113,8 +127,76 @@
       <h1>
 <a id="trace-on" class="anchor" href="#trace-on" aria-hidden="true"><span class="octicon octicon-link"></span></a>trace-on</h1>
 
-<p>纯色背景商品图片替换成渐变背景</p>
+<p>原理：对于背景颜色为纯色的图片，取背景色为基准，并以此为基础算出商品边缘。</p>
+<p>之后通过canvas自动生成渐变背景，解决商品图片白底导致视觉过于单调的问题。</p>
+<p>同时此类简单图片不需投入设计师人力进行处理。</p>
+        <p>运营同学拖拖按钮即可有其想要的图片效果。</p>
 
+        <br>
+        <p></p>
+        <p>用法：点击载入纯色图片，再拖动透明度调节。</p>
+    <section class="demo-section">
+        <div id="img-control">
+            <label for="source-img">纯色图片地址</label><br>
+            <input name="source-img" id="source-img" type="text" value="https://img.alicdn.com/imgextra/i3/1674413158/TB2GYJScpXXXXXlXXXXXXXXXXXX-1674413158.jpg_300x300.jpg">
+            <input id="getImage" type="submit" value="载入纯色图片"/>
+        </div>
+        <div id="container">
+            <div class="source-img">
+                <p>原图：</p>
+            <img id="source">
+            </div>
+            <div class="output-img">
+                <p>输出：</p>
+
+                <div id="target-bg-demo" style="background: radial-gradient(at 50% 50%, rgb(254, 255, 255) 0%, rgb(221, 241, 249) 35%, rgb(160, 216, 239) 100%);">
+
+                    <img id="result">
+                </div>
+            </div>
+        </div>
+        <div id="controls">
+            <label for="tolerance">透明度</label><br>
+            <input name="tolerance" id="tolerance" type="text" value="150">
+            <div id="tolerance-control" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 42.6143790849673%;"></a>
+            </div>
+            <label for="colorstop">范围</label><br>
+            <input name="colorstop" id="colorstop" readonly="" type="text" value="radial-gradient(at 50% 50%, #feffff 0%, #ddf1f9 63%, #a0d8ef 100%)">
+
+            <div class="color-stop-wrap">
+                <div>colorStop One</div>
+                <div id="colorstop-one" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                    <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 27.4509803921569%;"></a>
+                </div>
+                <div class="cp-container" id="one-color">
+                    <div class="picker-demo" style="background: #feffff"></div>
+                </div>
+            </div>
+
+            <div class="color-stop-wrap">
+                <div>colorStop Two</div>
+                <div id="colorstop-two" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                    <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 78.4313725490196%;"></a>
+                </div>
+                <div class="cp-container" id="two-color">
+                    <div class="picker-demo" style="background: #ddf1f9"></div>
+                </div>
+            </div>
+
+
+            <div class="color-stop-wrap">
+                <div>colorStop Three</div>
+                <div id="colorstop-three" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                    <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 100%;"></a>
+                </div>
+                <div class="cp-container" id="three-color">
+                    <div class="picker-demo" style="background:#a0d8ef "></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/yyydao/trace-on">Trace-on</a> is maintained by <a href="https://github.com/yyydao">yyydao</a>.</span>
 
@@ -123,58 +205,7 @@
 
     </section>
 
-    <div id="img-control">
-        <label for="source-img">图片地址</label><br>
-        <input name="source-img" id="source-img" type="text" value="https://img.alicdn.com/imgextra/i3/1674413158/TB2GYJScpXXXXXlXXXXXXXXXXXX-1674413158.jpg_300x300.jpg">
-        <input id="getImage" type="submit" value="载入"/>
-    </div>
-    <div id="container">
-        <img id="source">
-        <div id="target-bg-demo" style="background: radial-gradient(at 50% 50%, rgb(254, 255, 255) 0%, rgb(221, 241, 249) 35%, rgb(160, 216, 239) 100%);">
-            <img id="result">
-        </div>
-    </div>
-    <div id="controls">
-        <label for="tolerance">透明度</label><br>
-        <input name="tolerance" id="tolerance" type="text" value="150">
-        <div id="tolerance-control" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-            <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 42.6143790849673%;"></a>
-        </div>
-        <label for="colorstop">范围</label><br>
-        <input name="colorstop" id="colorstop" readonly="" type="text" value="radial-gradient(at 50% 50%, #feffff 0%, #ddf1f9 63%, #a0d8ef 100%)">
 
-        <div class="color-stop-wrap">
-            <div>colorStop One</div>
-            <div id="colorstop-one" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 27.4509803921569%;"></a>
-            </div>
-            <div class="cp-container" id="one-color">
-                <div class="picker-demo" style="background: #feffff"></div>
-            </div>
-        </div>
-
-        <div class="color-stop-wrap">
-            <div>colorStop Two</div>
-            <div id="colorstop-two" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 78.4313725490196%;"></a>
-            </div>
-            <div class="cp-container" id="two-color">
-                <div class="picker-demo" style="background: #ddf1f9"></div>
-            </div>
-        </div>
-
-
-        <div class="color-stop-wrap">
-            <div>colorStop Three</div>
-            <div id="colorstop-three" class="colorstop-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                <a class="ui-slider-handle ui-state-default ui-corner-all" style="left: 100%;"></a>
-            </div>
-            <div class="cp-container" id="three-color">
-                <div class="picker-demo" style="background:#a0d8ef "></div>
-            </div>
-        </div>
-
-    </div>
 
     <script src="js/js.js"></script>
 
